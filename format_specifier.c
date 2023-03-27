@@ -10,32 +10,22 @@ int print_char(va_list list)
 	return (1);
 }
 /**
- * print_string - writes the string
- * @list: list of args
- * Return: len of char printed.
+ * print_string - Prints a string
+ * @list: list of arguments
+ * Return: Will return the amount of characters printed.
  */
 int print_string(va_list list)
 {
-	int i, count = 0;
+	int i;
 	char *str;
 
 	str = va_arg(list, char *);
 	if (str == NULL)
 		str = "(null)";
-
 	for (i = 0; str[i] != '\0'; i++)
-	{
-		if ((str[i] > 0 && str[i] < 32) || str[i] >= 127)
-		{
-			count += _write_str("\\x");
-			count += _print_hex(str[i]);
-		}
-		else
-			count += _putchar(str[i]);
-	}
-	return (count);
+		_write_char(str[i]);
+	return (i);
 }
-
 /**
  * print_percent - to print percentage
  * @list: list of arguments
