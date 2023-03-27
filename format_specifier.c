@@ -32,7 +32,10 @@ int print_string(va_list list)
 		}
 		else
 		{
-			printf("\\x%02X", str[i]);
+			putchar('\\');
+            		putchar('x');
+            		putchar((str[i] / 16) < 10 ? (str[i] / 16) + '0' : (str[i] / 16) - 10 + 'A');
+            		putchar((str[i] % 16) < 10 ? (str[i] % 16) + '0' : (str[i] % 16) - 10 + 'A');
 			count += 4;
 		}
 	}
