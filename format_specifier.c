@@ -9,7 +9,27 @@ int print_char(va_list list)
 	_putchar(va_arg(list, int));
 	return (1);
 }
+/**
+ * _print_hex - converts an integer to its hexadecimal equivalent
+ * @num: the integer value to be converted
+ * Return: the number of characters printed
+ */
+int _print_hex(int num)
+{
+	char *hex_chars = "0123456789ABCDEF";
+	char hex[3];
+	int i, count = 0;
 
+	hex[0] = hex_chars[(num >> 4) & 0xF];
+	hex[1] = hex_chars[num & 0xF];
+	hex[2] = '\0';
+
+	for (i = 0; i < 2; i++) {
+		count += _write_char(hex[i]);
+	}
+
+	return (count);
+}
 /**
  * print_string - writes the string
  * @list: list of args
@@ -23,28 +43,16 @@ int print_string(va_list list)
 	str = va_arg(list, char *);
 	if (str == NULL)
 		str = "(null)";
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] >= 32 && str[i] < 127)
-		{
-			_putchar(str[i]);
-			count++;
-		}
-		else
-		{
-			putchar('\\');
-			putchar('x');
-			if ((str[i] / 16) < 10)
-				_putchar((str[i] / 10) + '0');
-			else
-				_putchar((str[i] / 16) - 10 + 'A');
-			if ((str[i] % 16) < 10)
-				_putchar((str[i] % 16) + '0');
-			else
-				_putchar((str[i] % 16) - 10 + 'A');
-			count += 4;
+
+	for (i = 0; str[i] != '\0'; i++) {
+		if ((str[i] > 0 && str[i] < 32) || str[i] >= 127) {
+			count += _write_str("\\x");
+			count += _print_hex(str[i]);
+		} else {
+			count += _write_char(str[i]);
 		}
 	}
+
 	return (count);
 }
 
