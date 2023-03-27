@@ -33,9 +33,15 @@ int print_string(va_list list)
 		else
 		{
 			putchar('\\');
-            		putchar('x');
-            		putchar((str[i] / 16) < 10 ? (str[i] / 16) + '0' : (str[i] / 16) - 10 + 'A');
-            		putchar((str[i] % 16) < 10 ? (str[i] % 16) + '0' : (str[i] % 16) - 10 + 'A');
+			putchar('x');
+			if ((str[i] / 16) < 10)
+				_putchar((str[i] / 10) + '0');
+			else
+				_putchar((str[i] / 16) - 10 + 'A');
+			if ((str[i] % 16) < 10)
+				_putchar((str[i] % 16) + '0');
+			else
+				_putchar((str[i] % 16) - 10 + 'A');
 			count += 4;
 		}
 	}
