@@ -17,15 +17,26 @@ int print_char(va_list list)
  */
 int print_string(va_list list)
 {
-	int i;
+	int i, count = 0;
 	char *str;
 
 	str = va_arg(list, char *);
 	if (str == NULL)
 		str = "(null)";
 	for (i = 0; str[i] != '\0'; i++)
-		_putchar(str[i]);
-	return (i);
+	{
+		if (str[i] >= 32 && str[i] < 127)
+		{
+			_putchar(str[i]);
+			count++;
+		}
+		else
+		{
+			printf("\\x%02X", str[i]);
+			count += 4;
+		}
+	}
+	return (count);
 }
 
 /**
