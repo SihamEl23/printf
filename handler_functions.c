@@ -74,3 +74,23 @@ char *_memcpy(char *dest, char *src, unsigned int n)
 	dest[i] = '\0';
 	return (dest);
 }
+
+/**
+ * _print_hex - converts an integer to its hexadecimal equivalent
+ * @num: the integer value to be converted
+ * Return: the number of characters printed
+ */
+int _print_hex(int num)
+{
+	char *hex_chars = "0123456789ABCDEF";
+	char hex[3];
+	int i, count = 0;
+
+	hex[0] = hex_chars[(num >> 4) & 0xF];
+	hex[1] = hex_chars[num & 0xF];
+	hex[2] = '\0';
+
+	for (i = 0; i < 2; i++)
+		count += _write_char(hex[i]);
+	return (count);
+}

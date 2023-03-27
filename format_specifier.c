@@ -10,27 +10,6 @@ int print_char(va_list list)
 	return (1);
 }
 /**
- * _print_hex - converts an integer to its hexadecimal equivalent
- * @num: the integer value to be converted
- * Return: the number of characters printed
- */
-int _print_hex(int num)
-{
-	char *hex_chars = "0123456789ABCDEF";
-	char hex[3];
-	int i, count = 0;
-
-	hex[0] = hex_chars[(num >> 4) & 0xF];
-	hex[1] = hex_chars[num & 0xF];
-	hex[2] = '\0';
-
-	for (i = 0; i < 2; i++) {
-		count += _write_char(hex[i]);
-	}
-
-	return (count);
-}
-/**
  * print_string - writes the string
  * @list: list of args
  * Return: len of char printed.
@@ -44,15 +23,16 @@ int print_string(va_list list)
 	if (str == NULL)
 		str = "(null)";
 
-	for (i = 0; str[i] != '\0'; i++) {
-		if ((str[i] > 0 && str[i] < 32) || str[i] >= 127) {
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if ((str[i] > 0 && str[i] < 32) || str[i] >= 127)
+		{
 			count += _write_str("\\x");
 			count += _print_hex(str[i]);
-		} else {
-			count += _write_char(str[i]);
 		}
+		else
+			count += _putchar(str[i]);
 	}
-
 	return (count);
 }
 
